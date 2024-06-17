@@ -65,7 +65,7 @@ if __name__ == "__main__":
                     # Step 6: Set the question_index to 0 in st.session_state
                     st.session_state['question_index'] = 0
                     ##### YOUR CODE HERE #####
-                    st.experimental_rerun()
+                    st.rerun()
 
     elif True:
         
@@ -103,11 +103,11 @@ if __name__ == "__main__":
                 # Here we use the next_question_index method from our quiz_manager class
                 if st.form_submit_button("Next Question", on_click=lambda: quiz_manager.next_question_index(direction=1)):
                     st.session_state["question_index"] = quiz_manager.next_question_index(direction=1)
-                    st.experimental_rerun()
+                    st.rerun()
                     
                 if st.form_submit_button("Previous Question", on_click=lambda: quiz_manager.next_question_index(direction=-1)):
                     st.session_state["question_index"] = quiz_manager.next_question_index(direction=-1)
-                    st.experimental_rerun()
+                    st.rerun()
                 ##### YOUR CODE HERE #####
                 
                 if answer_choice and answer is not None:
