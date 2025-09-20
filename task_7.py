@@ -1,9 +1,6 @@
 import streamlit as st
 from langchain_google_vertexai import VertexAI
 from langchain_core.prompts import PromptTemplate
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../')))
 
 class QuizGenerator:
     def __init__(self, topic=None, num_questions=1, vectorstore=None):
@@ -74,7 +71,6 @@ class QuizGenerator:
             model_name = "gemini-pro",
             temperature = 0.8, # Increased for less deterministic questions 
             max_output_tokens = 500
-            ############# YOUR CODE HERE ############
         )
         
     def generate_question_with_vectorstore(self):
@@ -102,10 +98,6 @@ class QuizGenerator:
 
         Note: Handle cases where the vectorstore is not provided by raising a ValueError.
         """
-        ############# YOUR CODE HERE ############
-        # Initialize the LLM from the 'init_llm' method if not already initialized
-        # Raise an error if the vectorstore is not initialized on the class
-        ############# YOUR CODE HERE ############
         if not self.llm:
             self.init_llm()
         if not self.vectorstore:
@@ -113,15 +105,7 @@ class QuizGenerator:
         
         from langchain_core.runnables import RunnablePassthrough, RunnableParallel
 
-        ############# YOUR CODE HERE ############
-        # Enable a Retriever using the as_retriever() method on the VectorStore object
-        # HINT: Use the vectorstore as the retriever initialized on the class
-        ############# YOUR CODE HERE ############
         retriever = self.vectorstore.as_retriever()
-        ############# YOUR CODE HERE ############
-        # Use the system template to create a PromptTemplate
-        # HINT: Use the .from_template method on the PromptTemplate class and pass in the system template
-        ############# YOUR CODE HERE ############
         prompt = PromptTemplate.from_template(self.system_template)
         # RunnableParallel allows Retriever to get relevant documents
         # RunnablePassthrough allows chain.invoke to send self.topic to LLM
@@ -129,10 +113,6 @@ class QuizGenerator:
             {"context": retriever, "topic": RunnablePassthrough()}
         )
         
-        ############# YOUR CODE HERE ############
-        # Create a chain with the Retriever, PromptTemplate, and LLM
-        # HINT: chain = RETRIEVER | PROMPT | LLM 
-        ############# YOUR CODE HERE ############
         chain = setup_and_retrieval | prompt | self.llm 
 
         # Invoke the chain with the topic as input
@@ -142,14 +122,14 @@ class QuizGenerator:
 # Test the Object
 if __name__ == "__main__":
     
-    from tasks.task_3.task_3 import DocumentProcessor
-    from tasks.task_4.task_4 import EmbeddingClient
-    from tasks.task_5.task_5 import ChromaCollectionCreator
+    from task_3 import DocumentProcessor
+    from task_4 import EmbeddingClient
+    from task_5 import ChromaCollectionCreator
     
     
     embed_config = {
         "model_name": "textembedding-gecko@003",
-        "project": "gemini-quizzify-424320",
+        "project": "your-project-id-here",
         "location": "us-central1"
     }
     
